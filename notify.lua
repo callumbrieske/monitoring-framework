@@ -2,6 +2,12 @@ _NOTIFY = {
 
   _STARTUPBUFFER = {},
   
+  _CONTROLDATA = {},
+  
+  _DIRTY = true,
+  
+  _COUNTSINCEUPDATE = 0,
+  
   _TIMER = Timer.New(),
   
   _SEND = function(self, channel, data)
@@ -17,8 +23,16 @@ _NOTIFY = {
     _NOTIFY._STARTUPBUFFER = nil  -- Destroy temporary queue.
   end,
   
-  _UPDATE = function()
+  _UPDATE = function(self)
     -- Update the remote controls.
+    if _NOTIFY._DIRTY or _NOTIFY._COUNTSINCEUPDATE >= 10 then
+      print("Tick")
+      
+      _NOTIFY._COUNTSINCEUPDATE = 0
+    end
+    
+    _NOTIFY._COUNTSINCEUPDATE = _NOTIFY._COUNTSINCEUPDATE + 1
+    _NOTIFY._DIRTY = false
   end,
   
   _BEGIN = function(self)
