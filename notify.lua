@@ -50,7 +50,7 @@ _NOTIFY = {
     end
     
     if _NOTIFY._DIRTY or _NOTIFY._COUNTSINCEUPDATE >= 10 then
-      print(json.encode(_NOTIFY._CONTROLDATA))
+      _NOTIFY:_SEND("TEST", json.encode(_NOTIFY._CONTROLDATA))
       
       _NOTIFY._COUNTSINCEUPDATE = 0
     end
@@ -63,7 +63,7 @@ _NOTIFY = {
   _BEGIN = function(self)
     self._TIMER.EventHandler = self._RUN
     math.randomseed(os.clock())
-    self._TIMER:Start(math.random(1))
+    self._TIMER:Start(math.random(10))
   end,
   
 }
